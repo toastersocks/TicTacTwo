@@ -13,6 +13,8 @@
 		DD4E5D1D1A97AC7F0075E1D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD4E5D1C1A97AC7F0075E1D7 /* Images.xcassets */; };
 		DD4E5D201A97AC7F0075E1D7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD4E5D1E1A97AC7F0075E1D7 /* LaunchScreen.xib */; };
 		DD4E5D2C1A97AC800075E1D7 /* TicTacTwo_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4E5D2B1A97AC800075E1D7 /* TicTacTwo_Tests.swift */; };
+		DD4E5D371A97B7D20075E1D7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4E5D361A97B7D20075E1D7 /* Game.swift */; };
+		DD4E5D391A97FFF70075E1D7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4E5D361A97B7D20075E1D7 /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		DD4E5D251A97AC800075E1D7 /* TicTacTwo!Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TicTacTwo!Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4E5D2A1A97AC800075E1D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD4E5D2B1A97AC800075E1D7 /* TicTacTwo_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacTwo_Tests.swift; sourceTree = "<group>"; };
+		DD4E5D351A97ACA20075E1D7 /* ScratchPad.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ScratchPad.playground; sourceTree = "<group>"; };
+		DD4E5D361A97B7D20075E1D7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 		DD4E5D071A97AC7F0075E1D7 = {
 			isa = PBXGroup;
 			children = (
+				DD4E5D351A97ACA20075E1D7 /* ScratchPad.playground */,
 				DD4E5D121A97AC7F0075E1D7 /* TicTacTwo! */,
 				DD4E5D281A97AC800075E1D7 /* TicTacTwo!Tests */,
 				DD4E5D111A97AC7F0075E1D7 /* Products */,
@@ -83,6 +88,7 @@
 				DD4E5D1C1A97AC7F0075E1D7 /* Images.xcassets */,
 				DD4E5D1E1A97AC7F0075E1D7 /* LaunchScreen.xib */,
 				DD4E5D131A97AC7F0075E1D7 /* Supporting Files */,
+				DD4E5D381A97B7DB0075E1D7 /* Model */,
 			);
 			path = "TicTacTwo!";
 			sourceTree = "<group>";
@@ -110,6 +116,14 @@
 				DD4E5D2A1A97AC800075E1D7 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DD4E5D381A97B7DB0075E1D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DD4E5D361A97B7D20075E1D7 /* Game.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +175,7 @@
 				TargetAttributes = {
 					DD4E5D0F1A97AC7F0075E1D7 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = NQ5FBJE8P8;
 					};
 					DD4E5D241A97AC800075E1D7 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -213,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD4E5D181A97AC7F0075E1D7 /* ViewController.swift in Sources */,
+				DD4E5D371A97B7D20075E1D7 /* Game.swift in Sources */,
 				DD4E5D161A97AC7F0075E1D7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD4E5D2C1A97AC800075E1D7 /* TicTacTwo_Tests.swift in Sources */,
+				DD4E5D391A97FFF70075E1D7 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "TicTacTwo!/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -346,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "TicTacTwo!/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
