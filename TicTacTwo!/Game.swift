@@ -12,21 +12,12 @@ public class Game {
     
     // MARK: - Enums
     
-    public enum TicTacToePiece: Printable {
+    public enum TicTacToePiece {
         case X
         case O
+     }
     
-        public var description: String {
-            switch self {
-            case .X:
-                return "X"
-            case .O:
-                return "O"
-            }
-        }
-    }
-    
-    enum WinningState {
+    public enum WinningState {
         case Win([[Int]]) // Wins hold an array of winning plays (either 1 or 2 at most are possible for tic tac toe)
         case Unwon // Game is not in a winning state
     }
@@ -43,7 +34,7 @@ public class Game {
                         [1, 4, 7],
                         [2, 5, 8]]
     
-    var board = [TicTacToePiece?](count: 9, repeatedValue: nil)
+    var board = [Optional<TicTacToePiece>](count: 9, repeatedValue: nil)
     
     var currentPlayer: TicTacToePiece = .X
     
@@ -51,7 +42,7 @@ public class Game {
     
         
     func makeMoveAtIndex(index: Int) -> Bool {
-        assert( 0..<board.count ~= index , "Index is out of range. Must be between 0-\(board.count - 1).")
+        assert( 0..<board.count ~= index , "Index of \(index) is out of range. Must be between 0-\(board.count - 1).")
 
         if board[index] == nil { // If the space is currently unplayed, then play it
             board[index] = currentPlayer
@@ -61,13 +52,13 @@ public class Game {
         }
     }
     
-    func isPossibleWinPlayed(positions: [Int]) -> Bool {
+    func isPossibleWinPlayed(possibleWin: [Int]) -> Bool {
         
-        let currentPlayerPiecesInPosition: Int = positions.filter { position in
+        let currentPlayerPiecesInPosition: Int = possibleWin.filter { position in
                 self.board[position] == self.currentPlayer
             }.count
         
-        return currentPlayerPiecesInPosition >= positions.count // if all pieces match the current player's, then it's a win! Otherwise it's not
+        return currentPlayerPiecesInPosition >= possibleWin.count // if all pieces match the current player's, then it's a win! Otherwise it's not
         }
     
     
@@ -80,5 +71,5 @@ public class Game {
         }
     }
     
-    }
+}
     
