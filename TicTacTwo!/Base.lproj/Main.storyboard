@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -17,20 +18,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h3j-oF-ZRl">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3j-oF-ZRl">
                                 <rect key="frame" x="16" y="304" width="343" height="343"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="h3j-oF-ZRl" secondAttribute="height" multiplier="1:1" id="Eud-vw-jSJ"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="8vb-Rr-tgM" kind="embed" identifier="TicTacToeSegue" id="cCV-Np-frc"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="X's Turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2Z-Fu-U0X">
-                                <rect key="frame" x="16" y="20" width="343" height="102"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X's Turn" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2Z-Fu-U0X">
+                                <rect key="frame" x="16" y="28" width="343" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="h3j-oF-ZRl" secondAttribute="bottom" constant="20" symbolic="YES" id="4Ln-WF-NSn"/>
+                            <constraint firstItem="e2Z-Fu-U0X" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="DZd-0P-pyJ"/>
+                            <constraint firstItem="e2Z-Fu-U0X" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="28" id="i5p-wZ-nLs"/>
+                            <constraint firstItem="e2Z-Fu-U0X" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="iLZ-Pa-m2U"/>
+                            <constraint firstItem="h3j-oF-ZRl" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="pWC-Ae-A0J"/>
+                            <constraint firstItem="h3j-oF-ZRl" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="xwf-P0-H0d"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>

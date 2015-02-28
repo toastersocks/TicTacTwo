@@ -105,10 +105,9 @@
 				DD4E5D1C1A97AC7F0075E1D7 /* Images.xcassets */,
 				DD4E5D1E1A97AC7F0075E1D7 /* LaunchScreen.xib */,
 				DD4E5D131A97AC7F0075E1D7 /* Supporting Files */,
+				DDB6E7951A9D301C00ED9513 /* TicTacToeViewController.swift */,
 				DD4E5D381A97B7DB0075E1D7 /* Model */,
 				DDB6E78F1A9D119800ED9513 /* View */,
-				DDB6E7931A9D123400ED9513 /* StaticGridView.swift */,
-				DDB6E7951A9D301C00ED9513 /* TicTacToeViewController.swift */,
 			);
 			path = "TicTacTwo!";
 			sourceTree = "<group>";
@@ -149,6 +148,7 @@
 		DDB6E78F1A9D119800ED9513 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DDB6E7931A9D123400ED9513 /* StaticGridView.swift */,
 				DDB6E7971A9D4F4600ED9513 /* TicTacToeCell.swift */,
 				DDB6E79B1AA0F23300ED9513 /* SeparatorReusableView.swift */,
 				DDB6E79D1AA0F3F700ED9513 /* TicTacToeFlowLayout.swift */,
