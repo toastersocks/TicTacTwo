@@ -46,6 +46,9 @@ public class Game {
 
         if board[index] == nil { // If the space is currently unplayed, then play it
             board[index] = currentPlayer
+            if isBoardInWinningState() == .Unwon {
+                currentPlayer = currentPlayer == .X ? .O : .X
+            }
             return true // Move was successful
         } else {
             return false // Move failed
