@@ -48,9 +48,14 @@ func subdivide<E>(array: [E], width: Int) -> [[E]]  {
 
 let multDimenArr = [
     [1,0,0],
-    [0,1,0],
+    [0,1,3],
     [0,0,1]
 ]
+/**
+1,0,0
+0,1,0
+0,3,1
+*/
 
 let singleDimenArr = [
     1,0,0,
@@ -71,4 +76,12 @@ let o1: Int = 1
 let o2: Int? = 1
 o1 == o2
 //a1 == a2
+
+var indexPath = NSIndexPath(forRow: 1, inSection: 1)
+multDimenArr[1][2]
+
+6 % 2
+7 % 2
+0 % 2
+1 % 2
 
