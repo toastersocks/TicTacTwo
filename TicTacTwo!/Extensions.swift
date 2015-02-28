@@ -62,6 +62,27 @@ public func ==(lhs: Game.WinningState, rhs: Game.WinningState) -> Bool {
     
 }
 
+extension Int {
+    /*func isEven() -> Bool {
+        return self % 2 == 0
+    }*/
+    
+    /*func isOdd() -> Bool {
+        return !(self.isEven())
+    }*/
+    
+    var isEven: Bool {
+        get {
+            return self % 2 == 0
+        }
+    }
+    
+    var isOdd: Bool {
+        get {
+            return !(self.isEven)
+        }
+    }
+}
 
 
 extension Array {
