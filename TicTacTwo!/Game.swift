@@ -58,7 +58,7 @@ public class Game {
      3,4,5,
      6,7,8]
     */
-    var board = [Optional<TicTacToePiece>](count: 9, repeatedValue: nil)
+    private(set) var board = [Optional<TicTacToePiece>](count: 9, repeatedValue: nil)
     
     /// The piece of the player who's turn it is. This is the piece that will be put down when makeMoveAtIndex() is called. It is also the piece that won the game if winningState is a .Win
     var currentPlayer: TicTacToePiece = .X
@@ -77,6 +77,18 @@ public class Game {
                 return WinningState.Win(winningPlays)
             }
         }
+    }
+    
+    // MARK: - Init
+    
+    init(board: [TicTacToePiece?]) {
+        self.board = board
+//        super.init()
+    }
+    
+    convenience init() {
+        let emptyBoard = [TicTacToePiece?](count: 9, repeatedValue: nil) // Swift compiler complaining when putting this array constructor directly as a paramater of the line below. Why...?
+        self.init(board: emptyBoard)
     }
 
     
