@@ -33,14 +33,30 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42S-2P-5Eb">
+                                <rect key="frame" x="147" y="86" width="82" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ksc-6b-a3t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <state key="normal" title="New Game">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startNewGame" destination="vXZ-lx-hvc" eventType="touchUpInside" id="CzZ-Hv-mjQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="h3j-oF-ZRl" secondAttribute="bottom" constant="20" symbolic="YES" id="4Ln-WF-NSn"/>
+                            <constraint firstAttribute="centerX" secondItem="42S-2P-5Eb" secondAttribute="centerX" id="B8F-71-6af"/>
                             <constraint firstItem="e2Z-Fu-U0X" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="DZd-0P-pyJ"/>
                             <constraint firstItem="e2Z-Fu-U0X" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="28" id="i5p-wZ-nLs"/>
                             <constraint firstItem="e2Z-Fu-U0X" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="iLZ-Pa-m2U"/>
                             <constraint firstItem="h3j-oF-ZRl" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="pWC-Ae-A0J"/>
+                            <constraint firstItem="42S-2P-5Eb" firstAttribute="top" secondItem="e2Z-Fu-U0X" secondAttribute="bottom" constant="10" id="rbq-WR-ZwX"/>
                             <constraint firstItem="h3j-oF-ZRl" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="xwf-P0-H0d"/>
                         </constraints>
                     </view>
