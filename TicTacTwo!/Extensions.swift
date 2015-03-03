@@ -54,7 +54,8 @@ public func ==(lhs: Game.WinningState, rhs: Game.WinningState) -> Bool {
         return true
     case (.Win(let leftWinArray), .Win(let rightWinArray)) where leftWinArray == rightWinArray:
         return true
-        
+    case (.Tie, .Tie):
+        return true
     default:
         return false
         
