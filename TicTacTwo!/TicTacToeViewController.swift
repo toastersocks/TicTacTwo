@@ -44,20 +44,17 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     func reloadData() {
         collectionView?.reloadData()
         displayLabel.text = "\(game.currentPlayer.description)\'s Turn"
     }
+    
+    @IBAction func startNewGame() {
+        game = Game()
+        reloadData()
+    }
+    
     
     // MARK: UICollectionViewDataSource
 
@@ -96,9 +93,11 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if game.makeMoveAtIndex(indexPath.item) {
             reloadData()
-            switch game.isBoardInWinningState() {
+            switch game.winningState {
             case .Win(let winningMoves):
                 displayLabel.text = "\(game.currentPlayer) won!"
+            case .Tie:
+                displayLabel.text = "It's a tie"
             default:
                 break
             }
