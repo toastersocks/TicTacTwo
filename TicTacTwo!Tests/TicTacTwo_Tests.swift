@@ -50,7 +50,7 @@ class TicTacTwo_Tests: XCTestCase {
             "Function should return false when the board positions passed do not match the currentPlayer")
     }
     
-    func testIsBoardInWinningState() {
+    func testwinningState() {
         game.board[0...2] = [Game.TicTacToePiece.X, Game.TicTacToePiece.X, Game.TicTacToePiece.X]
         
         /* Test win with one position 
@@ -59,7 +59,7 @@ class TicTacTwo_Tests: XCTestCase {
         _,_,_
         */
         
-        XCTAssert(game.isBoardInWinningState() == Game.WinningState.Win([[0,1,2]]), "Function should return a .Win with the associated win positions when there is a winning position played (one in this case)")
+        XCTAssert(game.winningState == Game.WinningState.Win([[0,1,2]]), "Function should return a .Win with the associated win positions when there is a winning position played (one in this case)")
         
         
         /**
@@ -72,7 +72,7 @@ class TicTacTwo_Tests: XCTestCase {
         game.board[3] = .X
         game.board[6] = .X
         
-        XCTAssertTrue(game.isBoardInWinningState() == Game.WinningState.Win([[0,1,2],[0,3,6]]), "Function should return a .Win containing all winning positions (either one or two) (two in this case)")
+        XCTAssertTrue(game.winningState == Game.WinningState.Win([[0,1,2],[0,3,6]]), "Function should return a .Win containing all winning positions (either one or two) (two in this case)")
         
         /**
         Test board in unwon state:
@@ -81,7 +81,7 @@ class TicTacTwo_Tests: XCTestCase {
         X,_,_
         */
 
-        XCTAssertFalse(game.isBoardInWinningState() == Game.WinningState.Unwon, "Function should return a WinningState of .Unwon when the board is in an unwon state")
+        XCTAssertFalse(game.winningState == Game.WinningState.Unwon, "Function should return a WinningState of .Unwon when the board is in an unwon state")
         
     }
     
