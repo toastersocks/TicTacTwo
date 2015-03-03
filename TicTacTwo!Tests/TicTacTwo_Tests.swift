@@ -12,12 +12,13 @@ import XCTest
 
 class TicTacTwo_Tests: XCTestCase {
     
-    let game = Game()
+    var game = Game()
+    var boardArray = [Optional<Game.TicTacToePiece>]()
     
     override func setUp() {
         super.setUp()
         game.currentPlayer = .X
-        game.board = [Optional<Game.TicTacToePiece>](count: 9, repeatedValue: nil)
+        boardArray = [Optional<Game.TicTacToePiece>](count: 9, repeatedValue: nil)
     }
     
     override func tearDown() {
@@ -41,7 +42,9 @@ class TicTacTwo_Tests: XCTestCase {
     
     
     func testIsPossibleWinPlayed() {
-        game.board[0...2] = [Game.TicTacToePiece.X, Game.TicTacToePiece.X, Game.TicTacToePiece.X]
+        boardArray[0...2] = [Game.TicTacToePiece.X, Game.TicTacToePiece.X, Game.TicTacToePiece.X]
+        game = Game(board: boardArray)
+        
         
         XCTAssert(game.isPossibleWinPlayed([0,1,2]),
             "Function should return true when the board positions passed match the currentPlayer")
@@ -51,7 +54,8 @@ class TicTacTwo_Tests: XCTestCase {
     }
     
     func testwinningState() {
-        game.board[0...2] = [Game.TicTacToePiece.X, Game.TicTacToePiece.X, Game.TicTacToePiece.X]
+        boardArray[0...2] = [Game.TicTacToePiece.X, Game.TicTacToePiece.X, Game.TicTacToePiece.X]
+        game = Game(board: boardArray)
         
         /* Test win with one position 
         X,X,X
@@ -69,8 +73,9 @@ class TicTacTwo_Tests: XCTestCase {
         X,_,_
         */
         
-        game.board[3] = .X
-        game.board[6] = .X
+        boardArray[3] = .X
+        boardArray[6] = .X
+        game = Game(board: boardArray)
         
         XCTAssertTrue(game.winningState == Game.WinningState.Win([[0,1,2],[0,3,6]]), "Function should return a .Win containing all winning positions (either one or two) (two in this case)")
         
