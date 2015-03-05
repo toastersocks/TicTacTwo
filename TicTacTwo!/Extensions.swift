@@ -85,6 +85,14 @@ extension Int {
     }
 }
 
+extension NSDate {
+    func toString(#formatString: String) -> String {
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = formatString
+        return dateFormatter.stringFromDate(self)
+    }
+}
 
 extension Array {
     /**
