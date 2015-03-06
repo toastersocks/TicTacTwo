@@ -20,7 +20,27 @@ struct Player {
     let playerID: String
     let playerPiece: Game.TicTacToePiece
     let playerType: PlayerType
+
+    init(displayName: String?, playerID: String?, playerPiece: Game.TicTacToePiece, playerType: PlayerType) {
+        
+        if let name = displayName {
+            self.displayName = name
+        } else {
+            self.displayName = playerPiece.description
+        }
+        
+        if let id = playerID {
+            self.playerID = id
+        } else {
+            self.playerID = self.displayName
+        }
+        
+        self.playerPiece = playerPiece
+        self.playerType = playerType
+    }
 }
+
+
 
 extension Player {
     init(displayName: String, playerPiece: Game.TicTacToePiece) {
