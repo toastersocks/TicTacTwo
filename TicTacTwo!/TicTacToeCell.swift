@@ -10,11 +10,6 @@ import UIKit
 
 class TicTacToeCell: UICollectionViewCell {
     
-    @IBOutlet weak var textLabel: UILabel! {
-        willSet {
-            debugPrintln(newValue)
-        }
-    }
+    @IBOutlet weak var textLabel: UILabel!
     
-   
 }
