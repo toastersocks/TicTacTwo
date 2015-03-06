@@ -13,10 +13,43 @@ private let separatorReuseID = "CellSeparator"
 private let ticTacToeSegue = "TicTacToeSegue"
 
 class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     
     weak var collectionView: UICollectionView!
     @IBOutlet weak var displayLabel: UILabel!
-    var game = Game()
+    
+    var gameSession: GameSession = {
+        
+        let localPlayer = Player(
+            displayName: "X",
+            playerID: Constants.localPlayer,
+            playerPiece: .X,
+            playerType: .Local)
+        let localOpponent = Player(
+            displayName: "O",
+            playerID: Constants.localOpponent,
+            playerPiece: .O, playerType: .Local)
+        let gameSessionID = localPlayer.playerID + NSDate().toString(formatString: "YYMMddhhmmss")
+        
+        return GameSession(sessionType: .Local, player: localPlayer, opponent: localOpponent, game: Game(), id: gameSessionID)
+    }()
+    
+     var game: Game {
+        get {
+           return gameSession.game
+        }
+        set {
+            gameSession.game = newValue
+        }
+    }
+    
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+//        fatalError("init(coder:) has not been implemented")
+    }
+
+    
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == ticTacToeSegue {
@@ -27,16 +60,16 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        game = gameSession.game
+        
         let nib = UINib(nibName: "TicTacToeLine", bundle: nil)
         collectionView.collectionViewLayout.registerNib(nib, forDecorationViewOfKind: separatorReuseID)
-//        collectionView.collectionViewLayout.registerClass(SeparatorReusableView.self, forDecorationViewOfKind: separatorReuseID)
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        displayLabel.text = "\(game.currentPlayer.description)\'s Turn"
- 
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,10 +77,12 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         // Dispose of any resources that can be recreated.
     }
 
-    
-    func reloadData() {
+       func reloadData() {
         collectionView?.reloadData()
-        displayLabel.text = "\(game.currentPlayer.description)\'s Turn"
+        
+        var displayString = gameSession.getHumanReadableStatus()
+        
+        displayLabel.text = displayString
     }
     
     @IBAction func startNewGame() {
@@ -91,18 +126,18 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if game.makeMoveAtIndex(indexPath.item) {
-            reloadData()
-            switch game.winningState {
-            case .Win(let winningMoves):
-                displayLabel.text = "\(game.currentPlayer) won!"
-            case .Tie:
-                displayLabel.text = "It's a tie"
-            default:
-                break
-            }
-            
+        switch gameSession.sessionType {
+        case .Local:
+            gameSession.makeMove(atIndex: indexPath.item)
+        case .Remote:
+            fallthrough
+        case .SinglePlayer:
+            fallthrough
+        default:
+            return
         }
+        
+        reloadData()
         
     }
     
