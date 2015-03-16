@@ -10,7 +10,7 @@ import UIKit
 import XCTest
 
 
-class TicTacTwo_Tests: XCTestCase {
+class Game_Tests: XCTestCase {
     
     var game = Game()
     var boardArray = [Optional<Game.TicTacToePiece>]()
@@ -88,6 +88,22 @@ class TicTacTwo_Tests: XCTestCase {
 
         XCTAssertFalse(game.winningState == Game.WinningState.Unwon, "Function should return a WinningState of .Unwon when the board is in an unwon state")
         
+    }
+    
+    func testBoardEndoding() {
+        let game = Game(board: [
+            nil,nil,nil,
+            .X,nil,.O,
+            .X,.O,.X])
+        let piece = Game.TicTacToePiece.O
+        
+        func boardIntoString(board: [Optional<Game.TicTacToePiece>]) -> String {
+            
+            let boardStringArray = board.map{ $0 == nil ? "nil" : String($0!) }
+            return ",".join(boardStringArray)
+        }
+        
+        println(boardIntoString(game.board))
     }
     
     func DISABLEtestExample() {
