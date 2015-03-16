@@ -11,7 +11,8 @@ import Foundation
 /**
 This class represents a game of Tic Tac Toe
 */
-public class Game {
+public class Game: NSObject {
+    
     
     // MARK: - Enums
     
@@ -79,14 +80,16 @@ public class Game {
         }
     }
     
+    
+    
     // MARK: - Init
     
     init(board: [TicTacToePiece?]) {
         self.board = board
-//        super.init()
+        super.init()
     }
     
-    convenience init() {
+    convenience override init() {
         let emptyBoard = [TicTacToePiece?](count: 9, repeatedValue: nil) // Swift compiler complaining when putting this array constructor directly as a paramater of the line below. Why...?
         self.init(board: emptyBoard)
     }
@@ -129,6 +132,63 @@ public class Game {
         
         return currentPlayerPiecesInPosition >= possibleWin.count // if all pieces match the current player's, then it's a win! Otherwise it's not
         }
+    
+    
+    
+    
+    // MARK: NSCoder
+    
+    /**
+    *  This private struct encapsulates methods and variables used for the purpose of complying with the NSCoding protocol
+    */
+    private struct NSCodingAspect {
+        static let key_board = "board"
+        static let key_currentPlayer = "currentPlayer"
+        
+        static func stringFromBoard(board: [Optional<TicTacToePiece>]) -> String {
+            
+            let boardStringArray = board.map{ $0 == nil ? "nil" : $0!.rawValue }
+            return ",".join(boardStringArray)
+        }
+        
+        static func boardFromString(boardString: String) -> [Optional<TicTacToePiece>] {
+            let stringArray = boardString.componentsSeparatedByString(",")
+            let boardArray: [Optional<TicTacToePiece>] = stringArray.map {
+                if $0 == "nil" {
+                    return nil
+                } else if let piece = TicTacToePiece(rawValue: $0) {
+                    return piece
+                } else {
+                    fatalError("Error decoding board")
+                }
+            }
+            return boardArray
+        }
+    }
+    
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(NSCodingAspect.stringFromBoard(board),
+            forKey: NSCodingAspect.key_board)
+        
+        aCoder.encodeObject(currentPlayer.rawValue,
+            forKey: NSCodingAspect.key_currentPlayer)
+    
+    
+    }
+    
+    init(coder aDecoder: NSCoder) {
+        let boardString = aDecoder.decodeObjectForKey(NSCodingAspect.key_board) as String
+        board = NSCodingAspect.boardFromString(boardString)
+        
+        let pieceString = aDecoder.decodeObjectForKey(NSCodingAspect.key_currentPlayer) as String
+        if let piece = TicTacToePiece(rawValue: pieceString) {
+            currentPlayer = piece
+        } else {
+         fatalError("Error decoding board")
+        }
+    }
+    
+
     
     
     

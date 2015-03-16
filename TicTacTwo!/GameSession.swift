@@ -9,6 +9,7 @@
 import Foundation
 
 
+
 /**
 Represents the type of session being played
 
@@ -25,18 +26,35 @@ enum SessionType: String {
 /**
 Represents a play session of a game
 */
-class GameSession {
+class GameSession: NSObject {
+
+    //Mark: - Notification events
+    /// Notification Events
+    class var movePlayedEvent: String {return "movePlayedEvent"}
     
+    /// The type of GameSession: Local, Remote, or SinglePlayer (ie against an AI)
     let sessionType: SessionType
+    
+    /// The local player
     let player: Player
+    
+    /// The opponent player
     let opponent: Player
+    
+    /// The game being played
     var game: Game
+    
+    /// A unique string identifying the current GameSession
     let id: String
+    
+    ///  The Player who's turn it is
     var currentPlayer: Player {
         get {
            return game.currentPlayer == player.playerPiece ? player : opponent
         }
     }
+    
+    ///  The date and time of the last play
     var lastUpdated: NSDate = NSDate()
     
     init(sessionType: SessionType, player: Player, opponent: Player, game: Game, id: String) {
@@ -53,26 +71,51 @@ class GameSession {
        
     }
     
-    func makePlayerMove(atIndex index: Int) {
+    
+    /**
+    Make a move as the local Player
+    
+    :param: index The position on the board to attempt a move
+    
+    :returns: Returns true if the move was successfully made
+    */
+    func makePlayerMove(atIndex index: Int) -> Bool {
         if player.playerPiece == game.currentPlayer {
-            makeMove(atIndex: index)
+           return makeMove(atIndex: index)
+        } else {
+            return false
         }
     }
     
-    func makeOpponentMove(atIndex index: Int) {
+    /**
+    Make a move as the opponent Player
+    
+    :param: index The position on the board to attempt a move
+    
+    :returns: Returns true if the move was successfully made
+    */
+    func makeOpponentMove(atIndex index: Int) -> Bool {
         if opponent.playerPiece == game.currentPlayer {
-            makeMove(atIndex: index)
+           return makeMove(atIndex: index)
+        } else {
+            return false
         }
     }
     
-    func makeMove(atIndex index: Int) {
-        game.makeMoveAtIndex(index)
-//        currentPlayer = game.currentPlayer == player.playerPiece ? player : opponent
-    }
+    /**
+    Make a move as the current Player
     
-    /*func makeMove(#player: Player atIndex index: Int) {
-        
-    }*/
+    :param: index The position on the board to attempt a move
+    
+    :returns: Returns true if the move was successfully made
+    */
+    func makeMove(atIndex index: Int) -> Bool {
+        let moveWasSuccessfull: Bool = game.makeMoveAtIndex(index)
+        if moveWasSuccessfull {
+            SwiftEventBus.post(GameSession.movePlayedEvent, sender: self)
+        }
+        return moveWasSuccessfull
+    }
 }
 
 /**
@@ -113,11 +156,11 @@ extension GameSession {
             friendlyState = "It's a tie"
         case (.Unwon, _):
             if sessionType == .Local ||
-                (sessionType != .Local && currentPlayer.playerType != .Local) {
+                (sessionType != .Local && currentPlayer == opponent) {
                     
                     friendlyState = "'s turn"
             } else {
-                "r turn"
+                friendlyState = "r turn"
             }
         default:
             friendlyState = " won!"
@@ -129,6 +172,7 @@ extension GameSession {
    
 
 }
+
 
 extension GameSession: Equatable {
     
