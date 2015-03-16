@@ -7,15 +7,42 @@
 //
 
 import UIKit
+//import MultipeerConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    let partyManager = PartyManager.sharedInstance
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        /*
+        SwiftEventBus.onMainThread(self, name: PartyManager.receivedStringMessageEvent) { notification in
+            if let peerID = notification.object as? MCPeerID {
+                if let infoDict = notification.userInfo as Dictionary! {
+                    if let message = infoDict[PartyManager.key_message] as? String {
+                        
+                       let senderDisplayName = self.partyManager.nameForPeerID(peerID)
+                        
+                        let alertController = UIAlertController(title: "Message from \(senderDisplayName!)", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        let alertAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+                            self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+                            return Void() // !!!: This is needed to so the compiler doesn't complain. WHY??? Without it, the compiler thinks the closure returns something and complains about init not taking arguments of type ()->()->()-> etc....
+                        }
+                        
+                        alertController.addAction(alertAction)
+                        self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+                        
+                    }
+                }
+            }
+        }
+        */
+        
         return true
     }
 
