@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class GameSessionTableViewController: UITableViewController, UIActionSheetDelegate {
 
     let gameSessionCellReuseID = "GameCell"
     let ticTacToeSegueID = "TicTacToeSegue"
+    private let remoteUsersStoryboardID = "RemoteUsersTableViewController"
     
     let sessionManager = SessionManager()
     
@@ -19,6 +21,26 @@ class GameSessionTableViewController: UITableViewController, UIActionSheetDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        SwiftEventBus.onMainThread(self, name: PartyManager.receivedGameMoveEvent) { notification in
+            if let move = notification.userInfo?[PartyManager.key_move] as? Move {
+                if let session = self.sessionManager[move.gameID] {
+                    session.makeOpponentMove(atIndex: move.boardIndex)
+                    self.tableView.reloadData()
+                }
+            }
+            
+        }
+        
+        SwiftEventBus.onMainThread(self, name: PartyManager.receivedNewGameEvent) { notification in
+            if let gameSessionInfo = notification.userInfo?[PartyManager.key_gameSession] as? GameSessionInfo {
+                if let opponentPeerID = notification.object as? MCPeerID {
+                    let newGameSession = GameSession(gameSessionInfo: gameSessionInfo)
+                    self.sessionManager.addGameSession(newGameSession)
+                    self.tableView.reloadData()
+                }
+            }
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -38,17 +60,37 @@ class GameSessionTableViewController: UITableViewController, UIActionSheetDelega
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {
-        case 1:
+        case 1: // Local
             tableView.beginUpdates()
-            tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
-            
+            tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
             sessionManager.newSessionWithLocalOpponent()
             tableView.endUpdates()
+            
+        case 2: // Remote
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let remoteUserTableViewController = storyboard.instantiateViewControllerWithIdentifier(remoteUsersStoryboardID) as RemoteUserTableViewController
+            
+            SwiftEventBus.onMainThread(self, name: remoteUserTableViewController.didSelectOpponentEvent) { result in
+                
+                if let opponent = result.object as? Player {
+                    let newSession = self.newSessionWithRemoteOpponent(opponent)
+                    let sessionInfo = newSession.getInfo()
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                    self.tableView.endUpdates()
+                    PartyManager.sharedInstance.sendMessage(sessionInfo, toPeerWithDisplayName: opponent.displayName)
+                }
+            }
+            presentViewController(remoteUserTableViewController, animated: true, completion: nil)
             
         default:
             return
         }
-        
+    }
+    
+    func newSessionWithRemoteOpponent(player: Player) -> GameSession {
+       return sessionManager.newSessionWithOpponent(player)
     }
 
     override func didReceiveMemoryWarning() {

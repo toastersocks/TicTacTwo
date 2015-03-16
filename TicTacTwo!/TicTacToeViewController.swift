@@ -66,6 +66,10 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         collectionView.collectionViewLayout.registerNib(nib, forDecorationViewOfKind: separatorReuseID)
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        SwiftEventBus.onMainThread(self, name: PartyManager.receivedGameMoveEvent) { notification in
+            self.reloadData()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -130,7 +134,14 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         case .Local:
             gameSession.makeMove(atIndex: indexPath.item)
         case .Remote:
-            fallthrough
+            if gameSession.currentPlayer.playerID == gameSession.player.playerID {
+                if gameSession.makePlayerMove(atIndex: indexPath.item) {
+                    let move = Move(boardIndex: indexPath.item, gameID: gameSession.id)
+                    PartyManager.sharedInstance.sendMessage(move, toPeerWithDisplayName: gameSession.opponent.displayName)
+                }
+            } else {
+//                displayLabel.text = "It's not you're turn!"
+            }
         case .SinglePlayer:
             fallthrough
         default:
