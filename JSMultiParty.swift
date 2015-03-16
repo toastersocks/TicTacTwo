@@ -74,7 +74,7 @@ MCNearbyServiceBrowserDelegate {
   }
   
   public func connectedPeers() -> [MCPeerID] {
-    return self.mcSession.connectedPeers as [MCPeerID]
+    return self.mcSession?.connectedPeers? as? [MCPeerID] ?? [MCPeerID]()
   }
   
   public func sendMessageToPeerId(peerId: MCPeerID, message: AnyObject) -> NSError? {
