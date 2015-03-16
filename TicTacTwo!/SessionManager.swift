@@ -44,7 +44,7 @@ class SessionManager {
         addGameSession(newGameSession)
     }
     
-    func newSessionWithOpponent(opponent: Player) {
+    func newSessionWithOpponent(opponent: Player) -> GameSession{
         var sessionType: SessionType
         switch opponent.playerType {
         case .Local:
@@ -56,13 +56,14 @@ class SessionManager {
         }
         let idString = opponent.playerID + NSDate().toString(formatString: "YYMMddhhmmss")
         let localPlayer = Player(
-            displayName: "You",
-            playerID: Constants.localPlayer,
+            displayName: PartyManager.sharedInstance.localUserName,
+            playerID: PartyManager.sharedInstance.localUserIDName,
             playerPiece: opponent.playerPiece == .X ? .O : .X,
             playerType: Player.PlayerType.Local)
         
         let newSession = GameSession(sessionType: sessionType, player: localPlayer, opponent: opponent, game: Game(), id: idString)
         addGameSession(newSession)
+        return newSession
     }
 
 

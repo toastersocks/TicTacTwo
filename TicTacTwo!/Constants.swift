@@ -11,4 +11,7 @@ import Foundation
 struct Constants {
     static let localPlayer = "LocalPlayer"
     static let localOpponent = "LocalOpponent"
-}
+    
+    static let key_userName = "userName"
+    
+   }
