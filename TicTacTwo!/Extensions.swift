@@ -9,7 +9,7 @@
 import Foundation
 
 
-extension Game.TicTacToePiece : Printable {
+extension Game.TicTacToePiece : Printable, DebugPrintable {
     
     public var description: String {
         switch self {
@@ -18,9 +18,37 @@ extension Game.TicTacToePiece : Printable {
         case .O:
             return "O"
         }
+        
+    }
+    public var debugDescription: String {
+        return description
     }
     
 }
+
+extension String {
+    init(_ x: Printable) {
+        self.init(x.description)
+    }
+    
+    /*init(_ x: DebugPrintable) {
+        let descrip: String = x.debugDescription
+        self.init(descrip)
+    }*/
+}
+
+/*extension Optional: Printable {
+    public var description: String {
+        switch self {
+        case .None:
+            return "nil"
+        case .Some(let someValue) where someValue.description? != nil:
+            return someValue.description
+        }
+    }
+}*/
+
+
 
 
 /*extension Game.TicTacToePiece : Equatable {
@@ -93,6 +121,25 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
 }
+
+func dictionaryElementsForValue<K,V: Equatable>(dict: Dictionary<K,V>, value: V) -> [(K, V)] {
+    let elementArray = filter(dict) { (key, elementValue) in
+        return value == elementValue
+    }
+    return elementArray
+}
+
+
+/*extension Dictionary {
+    func elementsForValue<V>(value: V) -> [Element] {
+        return dictionaryElementsForValue(self, value)
+    }
+    func keyForValue<V>(value: V) -> Key? {
+        return dictionaryElementsForValue(self, value).first?.0
+    }
+}*/
+
+
 
 extension Array {
     /**
