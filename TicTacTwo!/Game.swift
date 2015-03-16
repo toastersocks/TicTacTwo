@@ -21,9 +21,9 @@ public class Game {
     - X: The 'X' piece
     - O: The 'O' piece
     */
-    public enum TicTacToePiece {
-        case X
-        case O
+    public enum TicTacToePiece: String {
+        case X = "x"
+        case O = "o"
      }
     
     /**
