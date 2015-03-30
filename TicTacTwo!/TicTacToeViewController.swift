@@ -114,19 +114,25 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     }*/
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as TicTacToeCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! TicTacToeCell
             cell.textLabel.text = game.board[indexPath.item]?.description ?? ""
         return cell
     }
 
     // MARK: UICollectionViewDelegate
 
-//    override func collectionView(collectionView: UICollectionView, layout: 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewFlowLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let size = min(collectionView.bounds.size.width, collectionView.bounds.size.height) - collectionViewLayout.minimumInteritemSpacing * 4 - 1
-        return CGSize(
-            width: size / 3,
-            height: size / 3)
+//    override func collectionView(collectionView: UICollectionView, layout:
+
+    
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if let collectionViewLayout = collectionViewLayout as? UICollectionViewFlowLayout {
+            let size = min(collectionView.bounds.size.width, collectionView.bounds.size.height) - collectionViewLayout.minimumInteritemSpacing * 4 - 1
+            return CGSize(
+                width: size / 3,
+                height: size / 3)
+        }
+        return CGSizeZero
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

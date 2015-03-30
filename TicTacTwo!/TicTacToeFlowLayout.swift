@@ -63,7 +63,7 @@ class TicTacToeFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
-        var attributesInRect = super.layoutAttributesForElementsInRect(rect) as [UICollectionViewLayoutAttributes]
+        var attributesInRect = super.layoutAttributesForElementsInRect(rect) as! [UICollectionViewLayoutAttributes]
         
         for decorationIndex in 0...3 {
             attributesInRect.append(layoutAttributesForDecorationViewOfKind(

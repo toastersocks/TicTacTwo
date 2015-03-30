@@ -39,8 +39,8 @@ class GameSessionInfo: NSObject, NSCoding {
     }
     
     required init(coder aDecoder: NSCoder) {
-        id = aDecoder.decodeObjectForKey(NSCodingAspect.key_id) as String
-        game = aDecoder.decodeObjectForKey(NSCodingAspect.key_game) as Game
-        opponent = aDecoder.decodeObjectForKey(NSCodingAspect.key_opponent) as Player
+        id = aDecoder.decodeObjectForKey(NSCodingAspect.key_id) as! String
+        game = aDecoder.decodeObjectForKey(NSCodingAspect.key_game) as! Game
+        opponent = aDecoder.decodeObjectForKey(NSCodingAspect.key_opponent) as! Player
     }
 }

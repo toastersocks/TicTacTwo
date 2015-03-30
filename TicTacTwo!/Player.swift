@@ -100,14 +100,14 @@ public class Player: NSObject, NSCoding {
     }
     
     public required init(coder aDecoder: NSCoder) {
-        displayName = aDecoder.decodeObjectForKey(NSCodingAspect.key_displayName) as String
-        playerID = aDecoder.decodeObjectForKey(NSCodingAspect.key_playerID) as String
+        displayName = aDecoder.decodeObjectForKey(NSCodingAspect.key_displayName) as! String
+        playerID = aDecoder.decodeObjectForKey(NSCodingAspect.key_playerID) as! String
         
         playerPiece = Game.TicTacToePiece(
             rawValue: (aDecoder.decodeObjectForKey(
-                NSCodingAspect.key_playerPiece) as String))!
+                NSCodingAspect.key_playerPiece) as! String))!
         
-        let playerTypeString = aDecoder.decodeObjectForKey(NSCodingAspect.key_playerType) as String
+        let playerTypeString = aDecoder.decodeObjectForKey(NSCodingAspect.key_playerType) as! String
         switch playerTypeString {
             
             case NSCodingAspect.value_local:
@@ -115,7 +115,7 @@ public class Player: NSObject, NSCoding {
             
             case NSCodingAspect.value_remote:
                 
-                let opponentDisplayName = aDecoder.decodeObjectForKey(NSCodingAspect.key_opponentDisplayName) as String
+                let opponentDisplayName = aDecoder.decodeObjectForKey(NSCodingAspect.key_opponentDisplayName) as! String
                 playerType = .Remote(playerDisplayName: opponentDisplayName)
                 
             case NSCodingAspect.value_ai:
@@ -135,16 +135,10 @@ extension Player: Equatable {
 
 public func ==(lhs: Player, rhs: Player) -> Bool {
     
-    if  lhs.displayName != rhs.displayName ||
-        lhs.playerID != rhs.playerID       ||
-        lhs.playerPiece != rhs.playerPiece ||
-        lhs.playerType != rhs.playerType {
-            
-    return false
-            
-    } else {
-        return true
-    }
+    return  lhs.displayName == rhs.displayName &&
+            lhs.playerID == rhs.playerID       &&
+            lhs.playerPiece == rhs.playerPiece &&
+            lhs.playerType == rhs.playerType
 }
 
 extension Player {

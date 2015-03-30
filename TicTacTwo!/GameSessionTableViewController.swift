@@ -69,7 +69,7 @@ class GameSessionTableViewController: UITableViewController, UIActionSheetDelega
         case 2: // Remote
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
-            let remoteUserTableViewController = storyboard.instantiateViewControllerWithIdentifier(remoteUsersStoryboardID) as RemoteUserTableViewController
+            let remoteUserTableViewController = storyboard.instantiateViewControllerWithIdentifier(remoteUsersStoryboardID) as! RemoteUserTableViewController
             
             SwiftEventBus.onMainThread(self, name: remoteUserTableViewController.didSelectOpponentEvent) { result in
                 
@@ -114,7 +114,7 @@ class GameSessionTableViewController: UITableViewController, UIActionSheetDelega
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(gameSessionCellReuseID, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(gameSessionCellReuseID, forIndexPath: indexPath) as! UITableViewCell
         
         let orderedSessions = sessionManager.sorted{ $0.lastUpdated.laterDate($1.lastUpdated) == $0.lastUpdated }
         let gameSession = orderedSessions[indexPath.row]

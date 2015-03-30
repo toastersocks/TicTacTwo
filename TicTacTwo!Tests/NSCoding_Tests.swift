@@ -31,7 +31,7 @@ class NSCoding_Tests: XCTestCase {
         aCoder.finishEncoding()
         
         let aDecoder = NSKeyedUnarchiver(forReadingWithData: data)
-        let afterPlayer = aDecoder.decodeObjectForKey(key_player) as Player
+        let afterPlayer = aDecoder.decodeObjectForKey(key_player) as! Player
         
         XCTAssertEqual(beforePlayer, afterPlayer, "Player objects should be equal before and after coding and decoding")
 //        XCTAssert(true, "Pass")

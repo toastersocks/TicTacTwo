@@ -105,7 +105,7 @@ public class RemoteUserTableViewController: UITableViewController, UITextFieldDe
 
     
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(remoteUserCellID, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(remoteUserCellID, forIndexPath: indexPath) as! UITableViewCell
 
         if let displayName = partyManager.nameForPeerID(partyManager.connectedPeers[indexPath.row]) {
 //        if let displayName = partyManager.nameForPeerID(partyManager.foundPeers[indexPath.row]) {

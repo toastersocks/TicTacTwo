@@ -177,10 +177,10 @@ public class Game: NSObject {
     }
     
     init(coder aDecoder: NSCoder) {
-        let boardString = aDecoder.decodeObjectForKey(NSCodingAspect.key_board) as String
+        let boardString = aDecoder.decodeObjectForKey(NSCodingAspect.key_board) as! String
         board = NSCodingAspect.boardFromString(boardString)
         
-        let pieceString = aDecoder.decodeObjectForKey(NSCodingAspect.key_currentPlayer) as String
+        let pieceString = aDecoder.decodeObjectForKey(NSCodingAspect.key_currentPlayer) as! String
         if let piece = TicTacToePiece(rawValue: pieceString) {
             currentPlayer = piece
         } else {

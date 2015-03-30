@@ -74,7 +74,7 @@ MCNearbyServiceBrowserDelegate {
   }
   
   public func connectedPeers() -> [MCPeerID] {
-    return self.mcSession?.connectedPeers? as? [MCPeerID] ?? [MCPeerID]()
+    return self.mcSession?.connectedPeers as? [MCPeerID] ?? [MCPeerID]()
   }
   
   public func sendMessageToPeerId(peerId: MCPeerID, message: AnyObject) -> NSError? {
@@ -170,7 +170,7 @@ MCNearbyServiceBrowserDelegate {
   private func getRecycledPeerId() -> MCPeerID {
     let defaults = NSUserDefaults.standardUserDefaults()
     if let peerIdData = defaults.objectForKey(recycledPeerIdKey) as? NSData {
-      return NSKeyedUnarchiver.unarchiveObjectWithData(peerIdData) as MCPeerID
+      return NSKeyedUnarchiver.unarchiveObjectWithData(peerIdData) as! MCPeerID
     } else {
       let peerId = MCPeerID(displayName: UIDevice.currentDevice().name)
       let peerIdData = NSKeyedArchiver.archivedDataWithRootObject(peerId)

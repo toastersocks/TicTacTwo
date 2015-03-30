@@ -30,7 +30,7 @@ class GameSession: NSObject {
 
     //Mark: - Notification events
     /// Notification Events
-    class var movePlayedEvent: String {return "movePlayedEvent"}
+    static let movePlayedEvent = "movePlayedEvent"
     
     /// The type of GameSession: Local, Remote, or SinglePlayer (ie against an AI)
     let sessionType: SessionType

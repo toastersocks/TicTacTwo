@@ -37,6 +37,6 @@ class Move: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder) {
         boardIndex = aDecoder.decodeIntegerForKey(NSCodingAspect.key_boardIndex) as Int
-        gameID = aDecoder.decodeObjectForKey(NSCodingAspect.key_gameID) as String
+        gameID = aDecoder.decodeObjectForKey(NSCodingAspect.key_gameID) as! String
     }
 }
