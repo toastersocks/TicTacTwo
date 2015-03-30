@@ -84,7 +84,15 @@ class GameSessionTableViewController: UITableViewController, UIActionSheetDelega
             }
             presentViewController(remoteUserTableViewController, animated: true, completion: nil)
             
+        case 3: // Single player against AI
+            let aiOpponent = Player(displayName: "Al", playerID: "AI", playerPiece: .O, playerType: .AI)
+            let session = sessionManager.newSessionWithOpponent(aiOpponent)
+            let ai = AI(player: aiOpponent, gameSession: session)
+            self.tableView.beginUpdates()
+            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+            self.tableView.endUpdates()
         default:
+            
             return
         }
     }
