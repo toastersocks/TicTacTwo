@@ -16,3 +16,12 @@ func log(x: AnyObject, file: String = __FILE__, function: String = __FUNCTION__,
         debugPrintln(x)
     }
 }
+
+func delay(delay:Double, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
+}
