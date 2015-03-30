@@ -67,7 +67,7 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        SwiftEventBus.onMainThread(self, name: PartyManager.receivedGameMoveEvent) { notification in
+        SwiftEventBus.onMainThread(self, name: GameSession.movePlayedEvent) { notification in
             self.reloadData()
         }
     }
@@ -149,12 +149,14 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
 //                displayLabel.text = "It's not you're turn!"
             }
         case .SinglePlayer:
-            fallthrough
+            if gameSession.currentPlayer == gameSession.player {
+                gameSession.makeMove(atIndex: indexPath.item)
+            }
         default:
             return
         }
         
-        reloadData()
+//        reloadData()
         
     }
     
